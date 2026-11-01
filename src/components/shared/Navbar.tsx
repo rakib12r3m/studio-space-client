@@ -2,23 +2,18 @@ import Link from "next/link";
 import { ArrowUpRight, Clapperboard, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import Image from "next/image";
+
 
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Explore Studios", href: "/studios" },
-  { name: "How It Works", href: "/#how-it-works" },
-  { name: "About Us", href: "/about" },
 ];
+const sectionNavLinks = [
+   { name: "How It Works", href: "/#howItWork" },
+  { name: "About Us", href: "/about" },
+]
 
-// function LogoIcon() {
-//   return (
-//     <div className="relative flex size-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-950 shadow-md">
-//       <span className="text-2xl font-black text-white">S</span>
-//       <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-lime-400" />
-//     </div>
-//   );
-// }
+
 
 export default function Navbar() {
   return (
@@ -41,7 +36,7 @@ export default function Navbar() {
             </span>
 
             <span className="text-[8px] font-semibold uppercase tracking-[2px] text-slate-500">
-              Create Without Limits
+             Creative Hub
             </span>
           </div>
         </Link>
@@ -56,6 +51,15 @@ export default function Navbar() {
             >
               {link.name}
             </Link>
+          ))}
+          {sectionNavLinks.map((link)=>(
+            <a 
+            key={link.name} 
+            href={link.href}
+             className="rounded-lg px-3 py-2 text-[13px] font-semibold text-slate-600 transition hover:bg-blue-50 hover:text-blue-700"
+            >
+              {link.name}
+            </a>
           ))}
         </div>
 

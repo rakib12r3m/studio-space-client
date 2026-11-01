@@ -67,15 +67,26 @@ export default function Footer() {
 
           {/* Brand Section */}
           <div className="space-y-5">
-            <Link href="/" className="inline-flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#CCFF00] text-[#102A72]">
-                <Clapperboard size={25} />
-              </span>
+        
+<Link
+  href="/"
+  className="flex shrink-0 items-center gap-2 rounded-xl bg-white px-4 py-2.5 shadow-md shadow-black/10"
+>
+  <Clapperboard
+    size={40}
+    className="rounded-xl bg-[#102A72] p-2 text-[#CCFF00]"
+  />
 
-              <span className="text-2xl font-bold tracking-tight">
-                Studio<span className="text-[#CCFF00]">Space</span>
-              </span>
-            </Link>
+  <div className="flex flex-col">
+    <span className="text-lg font-black tracking-tight text-blue-950">
+      Studio<span className="text-blue-600">Space</span>
+    </span>
+
+    <span className="text-[8px] font-semibold uppercase tracking-[2px] text-slate-500">
+      Creative Hub
+    </span>
+  </div>
+</Link>
 
             <p className="max-w-xs text-sm leading-7 text-blue-100/70">
               Your creative journey starts here. Discover inspiring studios,
