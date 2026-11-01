@@ -10,7 +10,7 @@ const navLinks = [
 ];
 const sectionNavLinks = [
    { name: "How It Works", href: "/#howItWork" },
-  { name: "About Us", href: "/about" },
+  { name: "About Us", href: "/#about" },
 ]
 
 
@@ -88,7 +88,7 @@ export default function Navbar() {
               aria-label="Open navigation menu"
               className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-gray-100"
             >
-              <Menu className="h-6 w-6" />
+              <Menu className="h-5 w-5" />
             </SheetTrigger>
 
             <SheetContent
@@ -96,7 +96,7 @@ export default function Navbar() {
               className="w-[280px] border-blue-100 bg-white p-5"
             >
               {/* Mobile Logo */}
-              <Link href="/" className="mb-7 flex items-center gap-2">
+              <Link href="/" className="mb-4 flex items-center gap-2">
                 {/* <LogoIcon /> */}
 
                 <span className="text-lg font-black text-blue-950">
@@ -105,22 +105,31 @@ export default function Navbar() {
               </Link>
 
               {/* Mobile Links */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1">
                 {navLinks.map((link) => (
                   <Link
+                    key={link.name}
+                    href={link.href}
+                    className="rounded-lg px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-blue-50 hover:text-blue-700"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+                 {sectionNavLinks.map((link) => (
+                  <a
                     key={link.name}
                     href={link.href}
                     className="rounded-lg px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-blue-50 hover:text-blue-700"
                   >
                     {link.name}
-                  </Link>
+                  </a>
                 ))}
               </div>
 
               <div className="my-5 border-t border-slate-200" />
 
               {/* Mobile Actions */}
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-1">
                 <Button
                   variant="outline"
                   className="rounded-lg border-blue-200 text-blue-800"
@@ -134,11 +143,6 @@ export default function Navbar() {
                     <ArrowUpRight className="size-4" />
                   </Link>
                 </Button>
-              </div>
-
-              {/* Mobile Footer */}
-              <div className="absolute bottom-6 left-5 right-5 text-center">
-                <p className="text-xs text-slate-400">Create Without Limits.</p>
               </div>
             </SheetContent>
           </Sheet>
