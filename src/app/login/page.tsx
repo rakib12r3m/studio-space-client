@@ -38,6 +38,14 @@ export default function LoginPage() {
     }
   };
 
+  const handleGoogleSignIn =async () =>{
+    const data = await authClient.signIn.social({
+    provider: "google",
+  });
+  console.log(data, 'for google');
+  
+  }
+
 
 
 
@@ -145,8 +153,9 @@ export default function LoginPage() {
         </div>
 
         {/* Google */}
-        <button
-          type="button"
+        <button 
+        onClick={handleGoogleSignIn}
+          type="submit"
           className="flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/5 text-sm text-white transition hover:bg-white/10"
         >
           <span className="text-lg font-bold">G</span>
@@ -157,7 +166,7 @@ export default function LoginPage() {
         <p className="mt-5 text-center text-sm text-white/60">
           Don&apos;t have an account?{" "}
           <Link
-            href="/register"
+            href="/signup"
             className="font-semibold text-[#CCFF00] hover:underline"
           >
             Create Account

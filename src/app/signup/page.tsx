@@ -35,15 +35,18 @@ export default function RegisterPage() {
   const handleEmailSignUp =async (e: React.SubmitEvent<HTMLElement>) =>{
         e.preventDefault();
         const formData = new FormData(e.target)
-        const user = Object.fromEntries(formData.entries()) as {name:string, email: string, imageUrl: string, password:string}
+        const user = Object.fromEntries(formData.entries()) as {name:string, email: string, image: string, password:string}
         // console.log(user);
 
         const {data , error} = await authClient.signUp.email({
           ...user
         })
 
+
+
         if(data){
-          redirect('/')
+          redirect('/') 
+          console.log(user, 'from sign up page');
         }
         if(error){
           console.log(error);
@@ -51,6 +54,14 @@ export default function RegisterPage() {
         }
         
         
+  }
+
+   const handleGoogleSignIn =async () =>{
+    const data = await authClient.signIn.social({
+    provider: "google",
+  });
+  console.log(data, 'for google');
+  
   }
 
 
@@ -131,7 +142,7 @@ export default function RegisterPage() {
               />
               <input
                 type="url" 
-                name="imageUrl"
+                name="image"
                 placeholder="Enter your photo URL"
                 required
                 className="h-11 w-full rounded-lg border border-white/10 bg-[#080F35] pl-10 pr-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#CCFF00]"
@@ -197,7 +208,8 @@ export default function RegisterPage() {
         </div>
 
         {/* Google */}
-        <button
+        <button 
+        onClick={handleGoogleSignIn}
           type="button"
           className="flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/5 text-sm text-white transition hover:bg-white/10"
         >
