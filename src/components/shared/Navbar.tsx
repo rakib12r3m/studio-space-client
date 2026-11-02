@@ -73,7 +73,7 @@ export default function Navbar() {
           </Button>
 
           <Button className="group h-9 rounded-lg bg-blue-800 px-4 text-sm font-bold text-white shadow-md shadow-blue-900/20 transition-all duration-300 hover:bg-blue-950">
-            <Link href="/register" className="flex items-center gap-1.5">
+            <Link href="/signup" className="flex items-center gap-1.5">
               Get Started
               <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
