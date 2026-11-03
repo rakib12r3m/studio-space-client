@@ -79,7 +79,7 @@ export default function AddStudioPage() {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:8000/add-studio", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-studio`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -305,11 +305,8 @@ export default function AddStudioPage() {
             </Button> */}
             <Button
               type="button"
-              variant="outline"
-              onClick={() => {
-                setForm(initialForm);
-                setSelectedAmenities([]);
-              }}
+             
+              onClick={() => router.push("/")}
             >
               Cancel
             </Button>

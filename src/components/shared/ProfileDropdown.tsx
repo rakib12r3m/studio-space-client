@@ -32,7 +32,7 @@ type Props = {
 const menuItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Add New Studio", href: "/add-studio", icon: Plus },
-  { name: "My Studio Listings", href: "/my-studios", icon: UserRound },
+  { name: "My Studio Listings", href: "/my-listings", icon: UserRound },
   { name: "My Bookings", href: "/my-bookings", icon: CalendarDays },
 ];
 
