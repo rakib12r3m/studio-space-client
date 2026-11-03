@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { CalendarDays } from "lucide-react";
 import BookingCard from "./BookingCard";
@@ -22,8 +23,35 @@ type Booking = {
   ownerEmail: string;
 };
 
-const BookingList = ({ bookings }: { bookings: Booking[] }) => {
-  if (!bookings.length) {
+const BookingList = ({
+  bookings,
+  email,
+}: {
+  bookings: Booking[];
+  email: string;
+}) => {
+  const [myBookings, setMyBookings] = useState(bookings);
+
+  const handleCancel = async (id: string) => {
+    try {
+      const res = await fetch(
+        `http://localhost:8000/bookings/${id}?email=${encodeURIComponent(email)}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (res.ok) {
+        setMyBookings((prev) =>
+          prev.filter((booking) => booking._id !== id)
+        );
+      }
+    } catch (error) {
+      console.error("Failed to cancel booking:", error);
+    }
+  };
+
+  if (!myBookings.length) {
     return (
       <div className="rounded-2xl border border-white/10 bg-[#111B38] px-5 py-20 text-center">
         <CalendarDays className="mx-auto mb-5 text-lime-400" size={45} />
@@ -33,7 +61,7 @@ const BookingList = ({ bookings }: { bookings: Booking[] }) => {
         </h2>
 
         <p className="mx-auto mt-3 max-w-md text-gray-400">
-          You haven't booked any creative spaces yet. Explore our studios
+          You haven&apos;t booked any creative spaces yet. Explore our studios
           and find the perfect space for your next project.
         </p>
 
@@ -49,8 +77,12 @@ const BookingList = ({ bookings }: { bookings: Booking[] }) => {
 
   return (
     <div className="flex flex-col gap-6">
-      {bookings.map((booking) => (
-        <BookingCard key={booking._id} booking={booking} />
+      {myBookings.map((booking) => (
+        <BookingCard
+          key={booking._id}
+          booking={booking}
+          onCancel={handleCancel}
+        />
       ))}
     </div>
   );

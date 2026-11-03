@@ -97,21 +97,7 @@ export default function Navbar() {
               <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
           </Button>
-              {/* <Button
-                variant="ghost"
-                className="h-9 rounded-lg px-3 text-sm font-semibold text-blue-800 hover:bg-blue-50"
-                onClick={() => window.location.href = "/login"}
-              >
-                Sign In
-              </Button>
-
-              <Button
-                className="group h-9 rounded-lg bg-blue-800 px-4 text-sm font-bold text-white shadow-md shadow-blue-900/20 transition-all duration-300 hover:bg-blue-950"
-                onClick={() => window.location.href = "/register"}
-              >
-                Get Started
-                <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </Button> */}
+              
             </>
           )}
         </div>

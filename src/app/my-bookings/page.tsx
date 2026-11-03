@@ -36,7 +36,10 @@ const MyBookingPage = async () => {
           </p>
         </div>
 
-        <BookingList bookings={bookings} />
+       <BookingList
+  bookings={bookings}
+  email={session.user.email}
+/>
 
       </div>
     </section>
