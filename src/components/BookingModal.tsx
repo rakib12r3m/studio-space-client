@@ -13,7 +13,7 @@ const BookingModal = ({ studio }: { studio: Studio }) => {
   const user = session?.user;
   console.log(user, "user from bookingModal");
 
-  // const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
+ 
   //   e.preventDefault(); 
   //   const formData = new FormData(e.currentTarget)
   //   const info = Object.fromEntries(formData.entries())
@@ -83,46 +83,141 @@ const BookingModal = ({ studio }: { studio: Studio }) => {
   //   //   toast.error("Something went wrong!");
   //   // }
   // };
-const handleBooking =async (e: React.FormEvent<HTMLFormElement>) => {
+// const handleBooking =async (e: React.FormEvent<HTMLFormElement>) => {
+//   e.preventDefault();
+
+//   const formData = new FormData(e.currentTarget);
+//   const info = Object.fromEntries(formData.entries());
+
+//   console.log(info, "Booking Form Data");
+
+// const data = {
+//   ...user,
+//   ...info,
+//   ...studio,
+//   bookedAt: new Date().toLocaleDateString("en-GB"),
+
+// }
+// // const data = {
+// //   ...info,
+// //   userName: user?.name,
+// //   userEmail: user?.email,
+// //   studioId: studio._id,
+// //   studioTitle: studio.title,
+// //   ownerName: studio.ownerName,
+// //   ownerEmail: studio.ownerEmail,
+// //   hourlyRate: Number(studio.hourlyRate),
+// //   securityDeposit: Number(studio.securityDeposit),
+// //   bookedAt: new Date(),
+// //   status: "Pending",
+// // };
+// console.log(data, " all Data");
+
+// const res = await fetch('http://localhost:8000/bookings',{
+//   method: "POST",
+//   headers: {
+//     "Content-Type":"application/json"
+//   },
+//   body: JSON.stringify(data)
+// })
+// const BookingData = await res.json()
+// console.log(BookingData, "Booking Data");
+
+// };
+const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
-  const formData = new FormData(e.currentTarget);
-  const info = Object.fromEntries(formData.entries());
+  if (!user) {
+    toast.error("Please login before booking");
+    return;
+  }
 
-  console.log(info, "Booking Form Data");
+  const form = e.currentTarget;
+  const formData = new FormData(form);
 
-const data = {
-  ...user,
-  ...info,
-  ...studio,
-  bookedAt: new Date().toLocaleDateString("en-GB"),
+  const bookingDate = formData.get("bookingDate") as string;
+  const startTime = formData.get("startTime") as string;
+  const endTime = formData.get("endTime") as string;
+  const guests = Number(formData.get("guests"));
 
-}
-// const data = {
-//   ...info,
-//   userName: user?.name,
-//   userEmail: user?.email,
-//   studioId: studio._id,
-//   studioTitle: studio.title,
-//   ownerName: studio.ownerName,
-//   ownerEmail: studio.ownerEmail,
-//   hourlyRate: Number(studio.hourlyRate),
-//   securityDeposit: Number(studio.securityDeposit),
-//   bookedAt: new Date(),
-//   status: "Pending",
-// };
-console.log(data, " all Data");
+  if (startTime >= endTime) {
+    toast.error("End time must be after start time");
+    return;
+  }
 
-const res = await fetch('http://localhost:8000/bookings',{
-  method: "POST",
-  headers: {
-    "Content-Type":"application/json"
-  },
-  body: JSON.stringify(data)
-})
-const BookingData = await res.json()
-console.log(BookingData, "Booking Data");
+  try {
+    // Check existing bookings
+    const checkRes = await fetch(
+      `http://localhost:8000/bookings/${studio._id}/${bookingDate}`
+    );
 
+    if (!checkRes.ok) {
+      toast.error("Could not check studio availability");
+      return;
+    }
+
+    const existingBookings = await checkRes.json();
+
+    // Check time overlap
+    const isBooked = existingBookings.some(
+      (booking: { startTime: string; endTime: string }) =>
+        startTime < booking.endTime && endTime > booking.startTime
+    );
+
+    if (isBooked) {
+      toast.error("This time slot is already booked!");
+      return;
+    }
+
+    // Prepare booking data
+    const data = {
+      name: user.name,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      image: user.image,
+
+      id: studio._id,
+      bookingDate,
+      startTime,
+      endTime,
+      guests: String(guests),
+
+      title: studio.title,
+      category: studio.category,
+      location: studio.location,
+      hourlyRate: studio.hourlyRate,
+      securityDeposit: studio.securityDeposit,
+      maxCapacity: studio.maxCapacity,
+      imageUrl: studio.imageUrl,
+      overview: studio.overview,
+      amenities: studio.amenities,
+      ownerName: studio.ownerName,
+      ownerEmail: studio.ownerEmail,
+
+      bookedAt: new Date().toLocaleDateString("en-GB"),
+    };
+
+    // Save booking
+    const res = await fetch("http://localhost:8000/bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      toast.error("Booking failed!");
+      return;
+    }
+
+    toast.success("Studio booked successfully!");
+    form.reset();
+    setOpen(false);
+
+  } catch {
+    toast.error("Something went wrong!");
+  }
 };
 
 
