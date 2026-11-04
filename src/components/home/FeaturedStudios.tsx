@@ -213,6 +213,23 @@ export default function FeaturedStudios() {
                   <h3 className="truncate text-xl font-bold text-[#0F172A] transition group-hover:text-lime-600 dark:text-white dark:group-hover:text-lime-400">
                     {studio.title}
                   </h3>
+                  <div className="mt-2 flex items-center gap-1.5">
+  <Star
+    size={15}
+    className="fill-yellow-400 text-yellow-400"
+  />
+
+  <span className="text-sm font-semibold text-slate-700 dark:text-gray-200">
+    {studio.rating
+  ? Number(studio.rating).toFixed(1)
+  : "0"}
+      
+  </span>
+
+  <span className="text-xs text-slate-500 dark:text-gray-400">
+    / 5 
+  </span>
+</div>
 
                   {/* Location */}
 

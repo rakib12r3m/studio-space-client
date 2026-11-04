@@ -10,6 +10,7 @@ import {
   Users,
   ArrowUpRight,
   SlidersHorizontal,
+  Star,
 } from "lucide-react";
 
 interface Studio {
@@ -20,6 +21,7 @@ interface Studio {
   hourlyRate: string;
   maxCapacity: string;
   imageUrl: string;
+  rating: number;
 }
 
 const categories = [
@@ -249,6 +251,20 @@ const AllStudios = () => {
                   <h3 className="truncate text-base font-bold group-hover:text-green-600 dark:group-hover:text-lime-400">
                     {studio.title}
                   </h3>
+                  <div className="mt-1 flex items-center gap-1">
+  <Star
+    size={14}
+    className="fill-yellow-400 text-yellow-400"
+  />
+
+  <span className="text-xs font-semibold text-slate-700 dark:text-gray-300">
+    {studio.rating || 0}
+  </span>
+
+  <span className="text-xs text-slate-500 dark:text-gray-400">
+    / 5
+  </span>
+</div>
 
                   <p className="mt-2 flex items-center gap-1.5 text-xs text-slate-600 dark:text-gray-400">
                     <MapPin size={14} className="text-green-600 dark:text-lime-400" />

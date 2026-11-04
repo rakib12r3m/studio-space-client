@@ -38,6 +38,7 @@ const initialForm = {
   maxCapacity: "",
   imageUrl: "",
   overview: "",
+  rating: "0",
 };
 
 export default function AddStudioPage() {
@@ -224,6 +225,26 @@ export default function AddStudioPage() {
                   className="border-slate-300 bg-white text-[#14275D] placeholder:text-slate-400 dark:border-white/10 dark:bg-[#081936] dark:text-white"
                 />
               </div>
+              {/* ---- */}
+              <div className="space-y-2">
+                <Label>Studio Rating (Out of 5)</Label>
+
+                <Input
+                  type="number"
+                  placeholder="4.5"
+                  value={form.rating}
+                  onChange={(event) => update("rating", event.target.value)}
+                  min="0"
+                  max="5"
+                  step="0.1"
+                  required
+                  className="border-slate-300 bg-white text-[#14275D] placeholder:text-slate-400 dark:border-white/10 dark:bg-[#081936] dark:text-white"
+                />
+
+                <p className="text-xs text-slate-500 dark:text-gray-400">
+                  Enter a rating between 0 and 5.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -291,7 +312,7 @@ export default function AddStudioPage() {
               </div>
               <div className="space-y-2">
                 <Label>Host Email</Label>
-                {/* <Input value="Loading profile..." readOnly className="border-white/10 bg-[#081936]" /> */}
+
                 <Input value={session?.user?.email || ""} readOnly />
               </div>
             </div>
@@ -301,19 +322,10 @@ export default function AddStudioPage() {
           </div>
 
           <div className="flex flex-col justify-end gap-3 border-t border-slate-200 pt-6 dark:border-white/10 sm:flex-row">
-            {/* <Button type="reset" className="border-white/20  text-white">
-              Cancel
-            </Button> */}
             <Button type="button" onClick={() => router.push("/")}>
               Cancel
             </Button>
-            {/* <Button
-              type="submit"
-              className="bg-lime-400 font-bold text-[#071936] hover:bg-lime-300"
-            >
-              <Plus size={18} className="mr-2" />
-              Publish Studio
-            </Button> */}
+
             <Button type="submit" disabled={loading}>
               {loading ? "Adding Studio..." : "Add Studio"}
             </Button>
