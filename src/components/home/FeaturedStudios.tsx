@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -54,7 +55,7 @@ export default function FeaturedStudios() {
   }, []);
 
   return (
-    <section className="bg-[#07152F] px-5 py-20 md:px-10 lg:px-16">
+    <section className="bg-[#F8FAFC] px-5 py-20 transition-colors duration-300 dark:bg-[#07152F] md:px-10 lg:px-16">
       <div className="mx-auto max-w-7xl">
 
         {/* Section Heading */}
@@ -63,19 +64,19 @@ export default function FeaturedStudios() {
 
           <div className="text-center md:text-left">
 
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-lime-400/20 bg-lime-400/10 px-4 py-2 text-sm font-medium text-lime-400">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-lime-400/20 bg-lime-400/10 px-4 py-2 text-sm font-medium text-lime-600 dark:text-lime-400">
               <Sparkles size={16} />
               Featured Collection
             </div>
 
-            <h2 className="text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+            <h2 className="text-3xl font-bold text-[#0F172A] md:text-4xl lg:text-5xl dark:text-white">
               Discover Creative{" "}
-              <span className="text-lime-400">
+              <span className="text-lime-600 dark:text-lime-400">
                 Spaces
               </span>
             </h2>
 
-            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-400 md:text-base">
+            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600 md:text-base dark:text-slate-400">
               Explore inspiring creative spaces designed
               to bring your next big idea to life.
             </p>
@@ -100,15 +101,15 @@ export default function FeaturedStudios() {
             {Array.from({ length: 6 }).map((_, index) => (
               <div
                 key={index}
-                className="animate-pulse overflow-hidden rounded-2xl border border-white/10 bg-[#102344]"
+                className="animate-pulse overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#102344]"
               >
-                <div className="h-56 bg-slate-700/50" />
+                <div className="h-56 bg-slate-200 dark:bg-slate-700/50" />
 
                 <div className="space-y-4 p-5">
-                  <div className="h-4 w-24 rounded bg-slate-700" />
-                  <div className="h-6 w-3/4 rounded bg-slate-700" />
-                  <div className="h-4 w-1/2 rounded bg-slate-700" />
-                  <div className="h-10 rounded bg-slate-700" />
+                  <div className="h-4 w-24 rounded bg-slate-200 dark:bg-slate-700" />
+                  <div className="h-6 w-3/4 rounded bg-slate-200 dark:bg-slate-700" />
+                  <div className="h-4 w-1/2 rounded bg-slate-200 dark:bg-slate-700" />
+                  <div className="h-10 rounded bg-slate-200 dark:bg-slate-700" />
                 </div>
               </div>
             ))}
@@ -120,25 +121,25 @@ export default function FeaturedStudios() {
 
         {!loading && error && (
           <div className="rounded-2xl border border-red-400/20 bg-red-400/10 px-5 py-12 text-center">
-            <p className="text-red-300">{error}</p>
+            <p className="text-red-600 dark:text-red-300">{error}</p>
           </div>
         )}
 
         {/* Empty State */}
 
         {!loading && !error && studios.length === 0 && (
-          <div className="rounded-2xl border border-white/10 bg-[#102344] px-5 py-16 text-center">
+          <div className="rounded-2xl border border-slate-200 bg-white px-5 py-16 text-center dark:border-white/10 dark:bg-[#102344]">
 
             <Sparkles
-              className="mx-auto mb-4 text-lime-400"
+              className="mx-auto mb-4 text-lime-600 dark:text-lime-400"
               size={40}
             />
 
-            <h3 className="text-xl font-semibold text-white">
+            <h3 className="text-xl font-semibold text-[#0F172A] dark:text-white">
               No Studios Available Yet
             </h3>
 
-            <p className="mt-2 text-slate-400">
+            <p className="mt-2 text-slate-600 dark:text-slate-400">
               Be the first to share your creative space!
             </p>
 
@@ -160,12 +161,12 @@ export default function FeaturedStudios() {
             {studios.map((studio) => (
               <div
                 key={studio._id}
-                className="group overflow-hidden rounded-2xl border border-white/10 bg-[#102344] transition duration-300 hover:-translate-y-2 hover:border-lime-400/50 hover:shadow-xl hover:shadow-lime-400/5"
+                className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition duration-300 hover:-translate-y-2 hover:border-lime-400/50 hover:shadow-xl hover:shadow-lime-400/5 dark:border-white/10 dark:bg-[#102344]"
               >
 
                 {/* Studio Image */}
 
-                <div className="relative h-56 overflow-hidden bg-slate-800">
+                <div className="relative h-56 overflow-hidden bg-slate-200 dark:bg-slate-800">
 
                   {studio.imageUrl ? (
                     <Image
@@ -177,7 +178,7 @@ export default function FeaturedStudios() {
                       className="object-cover transition duration-500 group-hover:scale-110"
                     />
                   ) : (
-                    <div className="flex h-full items-center justify-center text-slate-400">
+                    <div className="flex h-full items-center justify-center text-slate-500 dark:text-slate-400">
                       No Image Available
                     </div>
                   )}
@@ -209,17 +210,17 @@ export default function FeaturedStudios() {
 
                 <div className="p-5">
 
-                  <h3 className="truncate text-xl font-bold text-white transition group-hover:text-lime-400">
+                  <h3 className="truncate text-xl font-bold text-[#0F172A] transition group-hover:text-lime-600 dark:text-white dark:group-hover:text-lime-400">
                     {studio.title}
                   </h3>
 
                   {/* Location */}
 
-                  <div className="mt-3 flex items-center gap-2 text-sm text-slate-400">
+                  <div className="mt-3 flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
 
                     <MapPin
                       size={16}
-                      className="shrink-0 text-lime-400"
+                      className="shrink-0 text-lime-600 dark:text-lime-400"
                     />
 
                     <span className="truncate">
@@ -230,17 +231,17 @@ export default function FeaturedStudios() {
 
                   {/* Price */}
 
-                  <div className="my-5 flex items-center justify-between border-t border-white/10 pt-5">
+                  <div className="my-5 flex items-center justify-between border-t border-slate-200 pt-5 dark:border-white/10">
 
                     <div>
-                      <p className="text-xs text-slate-400">
+                      <p className="text-xs text-slate-600 dark:text-slate-400">
                         Starting from
                       </p>
 
-                      <p className="mt-1 text-2xl font-bold text-lime-400">
+                      <p className="mt-1 text-2xl font-bold text-lime-600 dark:text-lime-400">
                         ${studio.hourlyRate}
 
-                        <span className="text-sm font-normal text-slate-400">
+                        <span className="text-sm font-normal text-slate-500 dark:text-slate-400">
                           {" "}/ hr
                         </span>
                       </p>
@@ -248,7 +249,7 @@ export default function FeaturedStudios() {
 
                     <Clock
                       size={20}
-                      className="text-slate-400"
+                      className="text-slate-500 dark:text-slate-400"
                     />
 
                   </div>
@@ -257,7 +258,7 @@ export default function FeaturedStudios() {
 
                   <Link
                     href={`/studios/${studio._id}`}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-lime-400/40 py-3 font-semibold text-lime-400 transition hover:bg-lime-400 hover:text-[#07152F]"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-lime-500/40 py-3 font-semibold text-lime-700 transition hover:bg-lime-400 hover:text-[#07152F] dark:text-lime-400"
                   >
                     View Details
                     <ArrowRight size={17} />

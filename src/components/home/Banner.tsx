@@ -8,34 +8,8 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { slides } from "@/lib/data/bannerData";
 
-// const slides = [
-//   {
-//     title: "Find Your Perfect Creative Space",
-//     highlight: "Create Without Limits.",
-//     description:
-//       "Discover inspiring photography studios, recording rooms, and creative spaces designed to bring your ideas to life.",
-//     image:
-//       "https://images.unsplash.com/photo-1497366754035-f200968a6e72",
-//   },
-//   {
-//     title: "Turn Your Vision Into Reality",
-//     highlight: "Make Something Amazing.",
-//     description:
-//       "From professional photography setups to cinematic production spaces, find everything you need to create.",
-//     image:
-//       "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb",
-//   },
-//   {
-//     title: "Share Your Space With Creators",
-//     highlight: "Earn From Your Studio.",
-//     description:
-//       "List your creative workspace, connect with talented creators, and turn your unused space into an opportunity.",
-//     image:
-//       "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04",
-//   },
-// ];
+import { slides } from "@/lib/data/bannerData";
 
 export default function Banner() {
   return (
@@ -50,20 +24,18 @@ export default function Banner() {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        className="overflow-hidden rounded-2xl shadow-2xl"
+        className="overflow-hidden rounded-2xl shadow-2xl ring-1 ring-[var(--border)]"
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div
-  className="relative flex h-[430px] items-center bg-cover bg-center px-6 py-16 sm:h-[480px] sm:px-12 lg:h-[540px] lg:px-20"
+              className="relative flex h-[430px] items-center bg-cover bg-center px-6 py-16 sm:h-[480px] sm:px-12 lg:h-[540px] lg:px-20"
               style={{
                 backgroundImage: `url(${slide.image})`,
               }}
             >
-              {/* Background Overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#071B55]/95 via-[#102D75]/75 to-black/20" />
 
-              {/* Content */}
               <div className="relative z-10 max-w-2xl text-white">
                 <span className="mb-5 inline-block rounded-full border border-lime-400/40 bg-lime-400/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-lime-300">
                   Welcome to StudioSpace
@@ -80,7 +52,6 @@ export default function Banner() {
                   {slide.description}
                 </p>
 
-                {/* CTA Buttons */}
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     href="/studios"

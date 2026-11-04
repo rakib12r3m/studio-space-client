@@ -84,26 +84,26 @@ export default function MyListingsPage() {
 
   if (isPending || loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#071936] text-lime-400">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-green-600 dark:bg-[#071936] dark:text-lime-400">
         Loading your studios...
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#071936] px-4 py-12 text-white md:px-8">
+    <main className="min-h-screen bg-slate-50 px-4 py-12 text-[#14275D] dark:bg-[#071936] dark:text-white md:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-center">
           <div>
-            <p className="mb-2 text-sm font-semibold text-lime-400">
+            <p className="mb-2 text-sm font-semibold text-green-600 dark:text-lime-400">
               STUDIO MANAGEMENT
             </p>
 
             <h1 className="text-3xl font-bold md:text-4xl">
-              My Studio Listings<span className="text-lime-400">.</span>
+              My Studio Listings<span className="text-green-600 dark:text-lime-400">.</span>
             </h1>
 
-            <p className="mt-2 text-gray-400">
+            <p className="mt-2 text-slate-600 dark:text-gray-400">
               Manage and organize your creative spaces.
             </p>
           </div>
@@ -119,25 +119,25 @@ export default function MyListingsPage() {
           </Button> */}
           <Link
   href="/add-studio"
-  className="inline-flex items-center gap-2 rounded-md bg-lime-400 px-4 py-2 font-bold text-[#071936] "
+  className="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 font-bold text-white hover:bg-green-700 dark:bg-lime-400 dark:text-[#071936] dark:hover:bg-lime-300 "
 >
   <Plus size={18} />
   Add New Studio
 </Link>
         </div>
 
-        <div className="mb-8 rounded-xl border border-white/10 bg-[#0D2450] p-5">
-          <p className="text-sm text-gray-400">Total Studios</p>
-          <h2 className="mt-2 text-3xl font-bold text-lime-400">
+        <div className="mb-8 rounded-xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-[#0D2450]">
+          <p className="text-sm text-slate-600 dark:text-gray-400">Total Studios</p>
+          <h2 className="mt-2 text-3xl font-bold text-green-600 dark:text-lime-400">
             {studios.length}
           </h2>
         </div>
 
         {studios.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-white/20 py-20 text-center">
+          <div className="rounded-2xl border border-dashed border-slate-300 py-20 text-center dark:border-white/20">
             <h2 className="text-2xl font-bold">No Studios Found!</h2>
 
-            <p className="mt-3 text-gray-400">
+            <p className="mt-3 text-slate-600 dark:text-gray-400">
               You haven&apos;t listed any studios yet.
             </p>
 
@@ -148,7 +148,7 @@ export default function MyListingsPage() {
               </Link>
             </Button> */}
            <Link href="/add-studio">
-  <Button className="mt-6 bg-lime-400 text-[#071936] hover:bg-lime-300 hover:text-[#071936]">
+  <Button className="mt-6 bg-green-600 text-white hover:bg-green-700 dark:bg-lime-400 dark:text-[#071936] dark:hover:bg-lime-300 dark:hover:text-[#071936]">
     <Plus size={18} />
     Add Your First Studio
   </Button>
@@ -169,7 +169,7 @@ export default function MyListingsPage() {
 
       {selectedStudio && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
-          <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0D2450] p-6">
+          <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 text-[#14275D] dark:border-white/10 dark:bg-[#0D2450] dark:text-white">
             <div className="mb-5 flex items-center justify-between">
               <h2 className="text-xl font-bold">Delete Studio?</h2>
 
@@ -181,9 +181,9 @@ export default function MyListingsPage() {
               </button>
             </div>
 
-            <p className="text-gray-400">
+            <p className="text-slate-600 dark:text-gray-400">
               Are you sure you want to delete{" "}
-              <span className="font-semibold text-white">
+              <span className="font-semibold text-[#14275D] dark:text-white">
                 {selectedStudio.title}
               </span>
               ? This action cannot be undone.

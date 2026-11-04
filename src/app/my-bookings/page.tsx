@@ -19,19 +19,19 @@ const MyBookingPage = async () => {
   const bookings = res.ok ? await res.json() : [];
 
   return (
-    <section className="min-h-screen bg-[#080D20] px-4 py-16">
+    <section className="min-h-screen bg-slate-50 px-4 py-16 dark:bg-[#080D20]">
       <div className="mx-auto max-w-6xl">
 
         <div className="mb-10">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-lime-400">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-green-600 dark:text-lime-400">
             Your Reservations
           </p>
 
-          <h1 className="text-3xl font-bold text-white md:text-4xl">
+          <h1 className="text-3xl font-bold text-[#14275D] dark:text-white md:text-4xl">
             My Bookings
           </h1>
 
-          <p className="mt-3 text-gray-400">
+          <p className="mt-3 text-slate-600 dark:text-gray-400">
             Manage your creative space reservations in one place.
           </p>
         </div>

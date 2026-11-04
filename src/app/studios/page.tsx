@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -90,12 +89,12 @@ const AllStudios = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#080F2A] text-white">
+    <main className="min-h-screen bg-slate-50 text-[#14275D] dark:bg-[#080F2A] dark:text-white">
 
       {/* Search Section */}
-      <section className="border-b border-white/10 bg-gradient-to-br from-[#101F52] to-[#080F2A]">
+      <section className="border-b border-slate-200 bg-gradient-to-br from-slate-100 to-slate-50 dark:border-white/10 dark:from-[#101F52] dark:to-[#080F2A]">
         <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-8">
-          <div className="mx-auto flex max-w-2xl items-center gap-2 rounded-xl bg-white p-2 shadow-xl">
+          <div className="mx-auto flex max-w-2xl items-center gap-2 rounded-xl border border-slate-200 bg-white p-2 shadow-xl dark:border-white/10">
 
             <Search className="ml-2 h-5 w-5 shrink-0 text-gray-500" />
 
@@ -108,7 +107,7 @@ const AllStudios = () => {
 
             <button
               onClick={() => setSearch(search.trim())}
-              className="rounded-lg bg-lime-400 px-4 py-2.5 text-sm font-bold text-[#080F2A] hover:bg-lime-300"
+              className="rounded-lg bg-green-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-green-700 dark:bg-lime-400 dark:text-[#080F2A] dark:hover:bg-lime-300"
             >
               Search
             </button>
@@ -124,7 +123,7 @@ const AllStudios = () => {
         <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[2px] text-lime-400">
+            <p className="text-xs font-semibold uppercase tracking-[2px] text-green-600 dark:text-lime-400">
               Discover Your Space
             </p>
 
@@ -132,20 +131,20 @@ const AllStudios = () => {
               Explore All Studios
             </h2>
 
-            <p className="mt-1 text-sm text-gray-400">
+            <p className="mt-1 text-sm text-slate-600 dark:text-gray-400">
               Find the right space for your creative project.
             </p>
           </div>
 
           {/* Sort */}
-          <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-[#111B3A] px-3 py-2">
+          <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-white/10 dark:bg-[#111B3A]">
 
-            <SlidersHorizontal className="h-4 w-4 text-lime-400" />
+            <SlidersHorizontal className="h-4 w-4 text-green-600 dark:text-lime-400" />
 
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="bg-transparent text-sm text-gray-300 outline-none"
+              className="bg-transparent text-sm text-[#14275D] outline-none dark:text-gray-300"
             >
               <option value="default">Default Sorting</option>
               <option value="low">Price: Low to High</option>
@@ -164,8 +163,8 @@ const AllStudios = () => {
               onClick={() => handleCategoryChange(item)}
               className={`shrink-0 rounded-full px-4 py-2 text-xs font-semibold transition ${
                 selectedCategory === item
-                  ? "bg-lime-400 text-[#080F2A]"
-                  : "border border-white/10 bg-[#111B3A] text-gray-300 hover:text-lime-400"
+                  ? "bg-green-600 text-white dark:bg-lime-400 dark:text-[#080F2A]"
+                  : "border border-slate-200 bg-white text-slate-600 hover:text-green-600 dark:border-white/10 dark:bg-[#111B3A] dark:text-gray-300 dark:hover:text-lime-400"
               }`}
             >
               {item}
@@ -175,9 +174,9 @@ const AllStudios = () => {
         </div>
 
         {/* Result Count */}
-        <p className="mb-4 text-sm text-gray-400">
+        <p className="mb-4 text-sm text-slate-600 dark:text-gray-400">
           Showing{" "}
-          <span className="text-lime-400">
+          <span className="text-green-600 dark:text-lime-400">
             {filteredStudios.length}
           </span>{" "}
           studios
@@ -189,7 +188,7 @@ const AllStudios = () => {
         {/* Loading & Empty State */}
         {loading ? (
 
-          <p className="py-12 text-center text-gray-400">
+          <p className="py-12 text-center text-slate-600 dark:text-gray-400">
             Loading studios...
           </p>
 
@@ -201,13 +200,13 @@ const AllStudios = () => {
               No Studios Found
             </h3>
 
-            <p className="mt-2 text-sm text-gray-400">
+            <p className="mt-2 text-sm text-slate-600 dark:text-gray-400">
               Try another search or category.
             </p>
 
             <button
               onClick={handleClearFilters}
-              className="mt-4 rounded-lg bg-lime-400 px-4 py-2 text-sm font-bold text-[#080F2A]"
+              className="mt-4 rounded-lg bg-green-600 px-4 py-2 text-sm font-bold text-white hover:bg-green-700 dark:bg-lime-400 dark:text-[#080F2A] dark:hover:bg-lime-300"
             >
               Clear Filters
             </button>
@@ -223,7 +222,7 @@ const AllStudios = () => {
 
               <div
                 key={studio._id}
-                className="group overflow-hidden rounded-xl border border-white/10 bg-[#111B3A] transition hover:-translate-y-1 hover:border-lime-400/40"
+                className="group overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:border-green-500/40 dark:border-white/10 dark:bg-[#111B3A] dark:hover:border-lime-400/40"
               >
 
                 {/* Image */}
@@ -238,7 +237,7 @@ const AllStudios = () => {
                     className="object-cover transition duration-500 group-hover:scale-105"
                   />
 
-                  <span className="absolute left-3 top-3 rounded-md bg-[#080F2A]/85 px-2.5 py-1 text-[10px] text-lime-400">
+                  <span className="absolute left-3 top-3 rounded-md bg-white/90 px-2.5 py-1 text-[10px] text-green-700 dark:bg-[#080F2A]/85 dark:text-lime-400">
                     {studio.category}
                   </span>
 
@@ -247,34 +246,34 @@ const AllStudios = () => {
                 {/* Content */}
                 <div className="p-3.5">
 
-                  <h3 className="truncate text-base font-bold group-hover:text-lime-400">
+                  <h3 className="truncate text-base font-bold group-hover:text-green-600 dark:group-hover:text-lime-400">
                     {studio.title}
                   </h3>
 
-                  <p className="mt-2 flex items-center gap-1.5 text-xs text-gray-400">
-                    <MapPin size={14} className="text-lime-400" />
+                  <p className="mt-2 flex items-center gap-1.5 text-xs text-slate-600 dark:text-gray-400">
+                    <MapPin size={14} className="text-green-600 dark:text-lime-400" />
                     {studio.location}
                   </p>
 
-                  <p className="mt-2 flex items-center gap-1.5 text-xs text-gray-400">
-                    <Users size={14} className="text-lime-400" />
+                  <p className="mt-2 flex items-center gap-1.5 text-xs text-slate-600 dark:text-gray-400">
+                    <Users size={14} className="text-green-600 dark:text-lime-400" />
                     Up to {studio.maxCapacity} people
                   </p>
 
-                  <div className="my-3 border-t border-white/10" />
+                  <div className="my-3 border-t border-slate-200 dark:border-white/10" />
 
                   <div className="flex items-center justify-between gap-2">
 
-                    <p className="text-lg font-bold text-lime-400">
+                    <p className="text-lg font-bold text-green-600 dark:text-lime-400">
                       ${studio.hourlyRate}
-                      <span className="text-[10px] font-normal text-gray-400">
+                      <span className="text-[10px] font-normal text-slate-500 dark:text-gray-400">
                         /hour
                       </span>
                     </p>
 
                     <Link
                       href={`/studios/${studio._id}`}
-                      className="flex items-center gap-1 rounded-lg bg-lime-400 px-3 py-2 text-xs font-bold text-[#080F2A] hover:bg-lime-300"
+                      className="flex items-center gap-1 rounded-lg bg-green-600 px-3 py-2 text-xs font-bold text-white hover:bg-green-700 dark:bg-lime-400 dark:text-[#080F2A] dark:hover:bg-lime-300"
                     >
                       View Details
                       <ArrowUpRight size={14} />

@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import {
   Search,
@@ -43,24 +42,24 @@ export default function HowItWorks() {
   return (
     <section
       id="howItWork"
-      className="bg-white scroll-mt-10 px-4 py-8 sm:px-6 lg:px-8 lg:py-12"
+      className="bg-[var(--background)] scroll-mt-10 px-4 py-8 transition-colors sm:px-6 lg:px-8 lg:py-12"
     >
       <div className="mx-auto max-w-7xl">
         {/* Heading */}
         <div className="mb-5 flex flex-col items-center text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-lime-500/30 bg-lime-50 px-3 py-1 text-[9px] font-bold uppercase tracking-[2px] text-[#729A00]">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-lime-500/30 bg-lime-50 px-3 py-1 text-[9px] font-bold uppercase tracking-[2px] text-[#729A00] dark:bg-lime-400/10 dark:text-lime-300">
             <span className="h-1.5 w-1.5 rounded-full bg-lime-500" />
             The Studio Experience
             <span className="h-1.5 w-1.5 rounded-full bg-lime-500" />
           </span>
 
-          <h2 className="mt-3 text-3xl font-black leading-tight tracking-tight text-[#071B55] sm:text-4xl">
-            <span className="block text-[#8BB800]">
+          <h2 className="mt-3 text-3xl font-black leading-tight tracking-tight text-[#071B55] dark:text-white sm:text-4xl">
+            <span className="block text-[#8BB800] dark:text-lime-400">
               How StudioSpace Works
             </span>
           </h2>
 
-          <p className="mt-2 max-w-lg text-xs leading-5 text-slate-500 sm:text-sm">
+          <p className="mt-2 max-w-lg text-xs leading-5 text-slate-500 dark:text-slate-400 sm:text-sm">
             Discover inspiring studios, book your time, and bring your
             creative vision to life.
           </p>

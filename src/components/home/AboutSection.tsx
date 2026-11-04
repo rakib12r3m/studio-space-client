@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -32,22 +31,24 @@ const features = [
 
 const AboutSection = () => {
   return (
-    <section id="about"  className="bg-[#F5F7FF] scroll-mt-18 py-7 md:py-9">
+    <section
+      id="about"
+      className="scroll-mt-18 bg-[#F5F7FF] py-7 transition-colors dark:bg-[var(--background)] md:py-9"
+    >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-
         {/* Page Heading */}
         <div className="mb-8 text-center">
-          <span className="text-xs font-bold uppercase tracking-[3px] text-[#3158C9]">
+          <span className="text-xs font-bold uppercase tracking-[3px] text-[#3158C9] dark:text-lime-400">
             Get to Know Us
           </span>
 
-          <h2 className="mt-2 text-3xl font-extrabold text-[#14275D] sm:text-4xl">
-            About <span className="text-[#3158C9]">Us</span>
+          <h2 className="mt-2 text-3xl font-extrabold text-[#14275D] dark:text-white sm:text-4xl">
+            About <span className="text-[#3158C9] dark:text-lime-400">Us</span>
           </h2>
 
           <div className="mx-auto mt-3 h-1 w-16 rounded-full bg-[#C8FF36]" />
 
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-gray-500">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-gray-500 dark:text-slate-400">
             Discover the story behind StudioSpace and how we bring
             creative minds and inspiring spaces together.
           </p>
@@ -55,32 +56,31 @@ const AboutSection = () => {
 
         {/* Main About Content */}
         <div className="grid items-center gap-7 lg:grid-cols-2">
-
           {/* Left Content */}
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#E8EDFF] px-3.5 py-1.5 text-xs font-semibold text-[#2446A5]">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#E8EDFF] px-3.5 py-1.5 text-xs font-semibold text-[#2446A5] dark:bg-[#172443] dark:text-lime-400">
               <Sparkles size={15} />
               Our Story
             </div>
 
-            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-[#14275D] sm:text-4xl md:text-[40px]">
+            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-[#14275D] dark:text-white sm:text-4xl md:text-[40px]">
               Great Ideas
               <br />
               Deserve
-              <span className="relative ml-2 inline-block text-[#3158C9]">
+              <span className="relative ml-2 inline-block text-[#3158C9] dark:text-lime-400">
                 Great Spaces.
                 <span className="absolute -bottom-1 left-0 h-1.5 w-full rounded-full bg-[#C8FF36]" />
               </span>
             </h2>
 
-            <p className="mt-4 max-w-xl text-sm leading-6 text-gray-600">
+            <p className="mt-4 max-w-xl text-sm leading-6 text-gray-600 dark:text-slate-300">
               Every creative project needs the right environment.
               StudioSpace makes it easier for photographers,
               filmmakers, musicians, and podcasters to discover
               inspiring workspaces.
             </p>
 
-            <p className="mt-2 max-w-xl text-sm leading-6 text-gray-600">
+            <p className="mt-2 max-w-xl text-sm leading-6 text-gray-600 dark:text-slate-300">
               We bring studio owners and creative minds together
               through one simple platform where discovering,
               sharing, and booking creative spaces feels effortless.
@@ -88,7 +88,7 @@ const AboutSection = () => {
 
             <Link
               href="/studios"
-              className="mt-5 inline-flex items-center gap-2.5 rounded-xl bg-[#2446A5] px-6 py-3 text-sm font-semibold text-white shadow-md shadow-blue-900/10 transition hover:bg-[#183784]"
+              className="mt-5 inline-flex items-center gap-2.5 rounded-xl bg-[#2446A5] px-6 py-3 text-sm font-semibold text-white shadow-md shadow-blue-900/10 transition hover:bg-[#183784] dark:bg-lime-400 dark:text-[#071B55] dark:hover:bg-lime-300"
             >
               Explore Our Studios
               <ArrowRight size={17} />
@@ -120,17 +120,17 @@ const AboutSection = () => {
             </div>
 
             {/* Floating Card */}
-            <div className="absolute -bottom-1 right-0 rounded-xl border border-gray-100 bg-white p-3 shadow-lg">
+            <div className="absolute -bottom-1 right-0 rounded-xl border border-gray-100 bg-white p-3 shadow-lg transition-colors dark:border-[var(--border)] dark:bg-[var(--card)]">
               <div className="flex items-center gap-2.5">
                 <div className="flex size-9 items-center justify-center rounded-lg bg-[#C8FF36] text-[#14275D]">
                   <Sparkles size={19} />
                 </div>
 
                 <div>
-                  <p className="text-sm font-bold text-[#14275D]">
+                  <p className="text-sm font-bold text-[#14275D] dark:text-white">
                     Create Without Limits
                   </p>
-                  <p className="text-[11px] text-gray-500">
+                  <p className="text-[11px] text-gray-500 dark:text-slate-400">
                     Find your creative space
                   </p>
                 </div>
@@ -144,29 +144,28 @@ const AboutSection = () => {
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className="rounded-xl border border-[#E7EBF5] bg-white p-4 transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-900/5"
+              className="rounded-xl border border-[#E7EBF5] bg-white p-4 transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-900/5 dark:border-[var(--border)] dark:bg-[var(--card)]"
             >
               <div className="flex items-center justify-between">
-                <div className="flex size-10 items-center justify-center rounded-lg bg-[#EAF0FF] text-[#2446A5]">
+                <div className="flex size-10 items-center justify-center rounded-lg bg-[#EAF0FF] text-[#2446A5] dark:bg-[#172443] dark:text-lime-400">
                   <feature.icon size={21} />
                 </div>
 
-                <span className="text-xs font-bold text-[#C1C9D9]">
+                <span className="text-xs font-bold text-[#C1C9D9] dark:text-slate-500">
                   0{index + 1}
                 </span>
               </div>
 
-              <h3 className="mt-3 text-base font-bold text-[#14275D]">
+              <h3 className="mt-3 text-base font-bold text-[#14275D] dark:text-white">
                 {feature.title}
               </h3>
 
-              <p className="mt-1.5 text-sm leading-6 text-gray-500">
+              <p className="mt-1.5 text-sm leading-6 text-gray-500 dark:text-slate-400">
                 {feature.description}
               </p>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

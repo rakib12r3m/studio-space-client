@@ -108,23 +108,24 @@ export default function AddStudioPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#071936] px-4 py-12 text-white md:px-8">
+    <div className="min-h-screen bg-slate-50 px-4 py-12 text-[#14275D] dark:bg-[#071936] dark:text-white md:px-8">
       <div className="mx-auto max-w-4xl">
         <div className="mb-8">
-          <p className="mb-2 text-sm font-semibold text-lime-400">
+          <p className="mb-2 text-sm font-semibold text-green-600 dark:text-lime-400">
             STUDIO MANAGEMENT
           </p>
           <h1 className="text-3xl font-bold md:text-4xl">
-            Add New Studio<span className="text-lime-400">.</span>
+            Add New Studio
+            <span className="text-green-600 dark:text-lime-400">.</span>
           </h1>
-          <p className="mt-2 text-gray-400">
+          <p className="mt-2 text-slate-600 dark:text-gray-400">
             Share your creative space with creators around the world.
           </p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-8 rounded-2xl border border-white/10 bg-[#0D2450] p-5 md:p-8"
+          className="space-y-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#0D2450] md:p-8"
         >
           <div className="space-y-5">
             <h2 className="text-xl font-semibold">Basic Information</h2>
@@ -136,7 +137,7 @@ export default function AddStudioPage() {
                 value={form.title}
                 onChange={(event) => update("title", event.target.value)}
                 required
-                className="border-white/10 bg-[#081936]"
+                className="border-slate-300 bg-white text-[#14275D] placeholder:text-slate-400 dark:border-white/10 dark:bg-[#081936] dark:text-white"
               />
             </div>
 
@@ -147,7 +148,7 @@ export default function AddStudioPage() {
                   value={form.category}
                   onValueChange={(value) => update("category", value ?? "")}
                 >
-                  <SelectTrigger className="border-white/10 bg-[#081936]">
+                  <SelectTrigger className="border-slate-300 bg-white dark:border-white/10 dark:bg-[#081936]">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -173,7 +174,7 @@ export default function AddStudioPage() {
                   value={form.location}
                   onChange={(event) => update("location", event.target.value)}
                   required
-                  className="border-white/10 bg-[#081936]"
+                  className="border-slate-300 bg-white text-[#14275D] placeholder:text-slate-400 dark:border-white/10 dark:bg-[#081936] dark:text-white"
                 />
               </div>
             </div>
@@ -192,7 +193,7 @@ export default function AddStudioPage() {
                   onChange={(event) => update("hourlyRate", event.target.value)}
                   required
                   min="1"
-                  className="border-white/10 bg-[#081936]"
+                  className="border-slate-300 bg-white text-[#14275D] placeholder:text-slate-400 dark:border-white/10 dark:bg-[#081936] dark:text-white"
                 />
               </div>
               <div className="space-y-2">
@@ -206,7 +207,7 @@ export default function AddStudioPage() {
                   }
                   required
                   min="0"
-                  className="border-white/10 bg-[#081936]"
+                  className="border-slate-300 bg-white text-[#14275D] placeholder:text-slate-400 dark:border-white/10 dark:bg-[#081936] dark:text-white"
                 />
               </div>
               <div className="space-y-2">
@@ -220,7 +221,7 @@ export default function AddStudioPage() {
                   }
                   required
                   min="1"
-                  className="border-white/10 bg-[#081936]"
+                  className="border-slate-300 bg-white text-[#14275D] placeholder:text-slate-400 dark:border-white/10 dark:bg-[#081936] dark:text-white"
                 />
               </div>
             </div>
@@ -237,16 +238,16 @@ export default function AddStudioPage() {
                   value={form.imageUrl}
                   onChange={(event) => update("imageUrl", event.target.value)}
                   required
-                  className="border-white/10 bg-[#081936]"
+                  className="border-slate-300 bg-white text-[#14275D] placeholder:text-slate-400 dark:border-white/10 dark:bg-[#081936] dark:text-white"
                 />
                 <Button
                   type="button"
-                  className="shrink-0 border-lime-400 text-lime-400 cursor-pointer"
+                  className="shrink-0 cursor-pointer border border-green-600 bg-green-50 text-green-700 hover:bg-green-100 dark:border-lime-400 dark:bg-lime-400/10 dark:text-lime-400 dark:hover:bg-lime-400/20"
                 >
-                  <ImagePlus size={18} className="bg-blue" />
+                  <ImagePlus size={18} />
                 </Button>
               </div>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-slate-500 dark:text-gray-400">
                 Upload your image to ImgBB and paste the URL here.
               </p>
             </div>
@@ -258,7 +259,7 @@ export default function AddStudioPage() {
               {amenities.map((item) => (
                 <label
                   key={item}
-                  className="flex cursor-pointer items-center gap-2 text-sm text-gray-300"
+                  className="flex cursor-pointer items-center gap-2 text-sm text-slate-700 dark:text-gray-300"
                 >
                   <Checkbox
                     checked={selectedAmenities.includes(item)}
@@ -277,7 +278,7 @@ export default function AddStudioPage() {
               value={form.overview}
               onChange={(event) => update("overview", event.target.value)}
               required
-              className="min-h-36 border-white/10 bg-[#081936]"
+              className="min-h-36 border-slate-300 bg-white text-[#14275D] placeholder:text-slate-400 dark:border-white/10 dark:bg-[#081936] dark:text-white"
             />
           </div>
 
@@ -294,20 +295,16 @@ export default function AddStudioPage() {
                 <Input value={session?.user?.email || ""} readOnly />
               </div>
             </div>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-slate-500 dark:text-gray-400">
               Host information is automatically provided by your account.
             </p>
           </div>
 
-          <div className="flex flex-col justify-end gap-3 border-t border-white/10 pt-6 sm:flex-row">
+          <div className="flex flex-col justify-end gap-3 border-t border-slate-200 pt-6 dark:border-white/10 sm:flex-row">
             {/* <Button type="reset" className="border-white/20  text-white">
               Cancel
             </Button> */}
-            <Button
-              type="button"
-             
-              onClick={() => router.push("/")}
-            >
+            <Button type="button" onClick={() => router.push("/")}>
               Cancel
             </Button>
             {/* <Button
