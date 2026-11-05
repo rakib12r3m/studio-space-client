@@ -17,8 +17,7 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 const amenities = [
   "WiFi",
@@ -49,10 +48,10 @@ export default function EditStudioPage() {
   const { data: session, isPending } = authClient.useSession();
 
   const [form, setForm] = useState(initialForm);
-  const [selectedAmenities, setSelectedAmenities] =
-    useState<string[]>([]);
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  
 
   useEffect(() => {
     if (isPending) return;
@@ -65,6 +64,8 @@ export default function EditStudioPage() {
     const fetchStudio = async () => {
       try {
         const res = await fetch(`${API_URL}/studios/${id}`);
+
+      
 
         if (!res.ok) throw new Error();
 
@@ -105,15 +106,11 @@ export default function EditStudioPage() {
 
   const toggleAmenity = (item: string) => {
     setSelectedAmenities((prev) =>
-      prev.includes(item)
-        ? prev.filter((a) => a !== item)
-        : [...prev, item]
+      prev.includes(item) ? prev.filter((a) => a !== item) : [...prev, item],
     );
   };
 
-  const handleSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!session?.user) return;
@@ -132,7 +129,7 @@ export default function EditStudioPage() {
             ...form,
             amenities: selectedAmenities,
           }),
-        }
+        },
       );
 
       const data = await res.json();
@@ -162,7 +159,6 @@ export default function EditStudioPage() {
   return (
     <main className="min-h-screen bg-[#071936] px-4 py-12 text-white md:px-8">
       <div className="mx-auto max-w-4xl">
-
         <div className="mb-8">
           <p className="mb-2 text-sm font-semibold text-lime-400">
             STUDIO MANAGEMENT
@@ -172,9 +168,7 @@ export default function EditStudioPage() {
             Update Studio<span className="text-lime-400">.</span>
           </h1>
 
-          <p className="mt-2 text-gray-400">
-            Update your studio information.
-          </p>
+          <p className="mt-2 text-gray-400">Update your studio information.</p>
         </div>
 
         <form
@@ -246,9 +240,7 @@ export default function EditStudioPage() {
                 type="number"
                 min="0"
                 value={form.securityDeposit}
-                onChange={(e) =>
-                  update("securityDeposit", e.target.value)
-                }
+                onChange={(e) => update("securityDeposit", e.target.value)}
                 required
               />
             </div>
@@ -305,11 +297,7 @@ export default function EditStudioPage() {
           </div>
 
           <div className="flex justify-end gap-3 border-t border-white/10 pt-6">
-            <Button
-              type="button"
-             
-              onClick={() => router.push("/my-listings")}
-            >
+            <Button type="button" onClick={() => router.push("/my-listings")}>
               Cancel
             </Button>
 

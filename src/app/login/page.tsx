@@ -11,10 +11,17 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const handleEmailLogin = async (e: React.SubmitEvent<HTMLElement>) => {
     e.preventDefault();
@@ -28,23 +35,35 @@ export default function LoginPage() {
       ...user,
     });
 
-    if (data) {
-      redirect("/");
-      console.log(data);
+    // if (data) {
+    //   redirect("/");
+    //   console.log(data);
       
-    }
+    // }
+    if (data) {
+  router.push(callbackUrl);
+  console.log(data);
+}
     if (error) {
       console.log(error);
     }
   };
 
-  const handleGoogleSignIn =async () =>{
-    const data = await authClient.signIn.social({
-    provider: "google",
-  });
-  console.log(data, 'for google');
+  // const handleGoogleSignIn =async () =>{
+  //   const data = await authClient.signIn.social({
+  //   provider: "google",
+  // });
+  // console.log(data, 'for google');
   
-  }
+  // }
+  const handleGoogleSignIn = async () => {
+  const data = await authClient.signIn.social({
+    provider: "google",
+    callbackURL: callbackUrl,
+  });
+
+  console.log(data, "for google");
+};
 
 
 
