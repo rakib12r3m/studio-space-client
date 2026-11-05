@@ -1,8 +1,10 @@
-
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import BookingList from "@/components/my-bookings/BookingList";
+
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 const MyBookingPage = async () => {
   const session = await auth.api.getSession({
@@ -12,7 +14,7 @@ const MyBookingPage = async () => {
   if (!session?.user) redirect("/login");
 
   const res = await fetch(
-    `http://localhost:8000/my-bookings/${encodeURIComponent(session.user.email)}`,
+    `${API_URL}/my-bookings/${encodeURIComponent(session.user.email)}`,
     { cache: "no-store" }
   );
 
@@ -21,7 +23,6 @@ const MyBookingPage = async () => {
   return (
     <section className="min-h-screen bg-slate-50 px-4 py-16 dark:bg-[#080D20]">
       <div className="mx-auto max-w-6xl">
-
         <div className="mb-10">
           <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-green-600 dark:text-lime-400">
             Your Reservations
@@ -36,11 +37,10 @@ const MyBookingPage = async () => {
           </p>
         </div>
 
-       <BookingList
-  bookings={bookings}
-  email={session.user.email}
-/>
-
+        <BookingList
+          bookings={bookings}
+          email={session.user.email}
+        />
       </div>
     </section>
   );

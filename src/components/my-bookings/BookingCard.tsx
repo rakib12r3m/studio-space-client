@@ -1,6 +1,3 @@
-
-"use client";
-
 import Image from "next/image";
 import {
   CalendarDays,
@@ -10,7 +7,7 @@ import {
   Trash2,
 } from "lucide-react";
 
-type Booking = {
+export type Booking = {
   _id: string;
   title: string;
   category: string;
@@ -25,14 +22,28 @@ type Booking = {
   amenities: string[];
   ownerName: string;
   ownerEmail: string;
+  status: "Pending" | "Confirmed" | "Completed" | "Cancelled";
+};
+
+const statusStyles: Record<Booking["status"], string> = {
+  Pending: "bg-yellow-400/10 text-yellow-400",
+  Confirmed: "bg-green-400/10 text-green-400",
+  Completed: "bg-blue-400/10 text-blue-400",
+  Cancelled: "bg-red-400/10 text-red-400",
 };
 
 const BookingCard = ({
   booking,
   onCancel,
+  onDelete,
+  cancelling,
+  deleting,
 }: {
   booking: Booking;
   onCancel: (id: string) => void;
+  onDelete: (id: string) => void;
+  cancelling: boolean;
+  deleting: boolean;
 }) => {
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-white/10 bg-[#111B38] sm:flex-row">
@@ -55,8 +66,10 @@ const BookingCard = ({
               {booking.category}
             </span>
 
-            <span className="rounded-full bg-yellow-400/10 px-2.5 py-0.5 text-[11px] text-yellow-400">
-              Pending
+            <span
+              className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${statusStyles[booking.status]}`}
+            >
+              {booking.status}
             </span>
           </div>
 
@@ -101,13 +114,27 @@ const BookingCard = ({
             </p>
           </div>
 
-          <button
-            onClick={() => onCancel(booking._id)}
-            className="flex items-center gap-1.5 rounded-lg border border-red-400/30 px-2.5 py-1.5 text-[11px] font-semibold text-red-400 transition hover:bg-red-400/10"
-          >
-            <Trash2 size={13} />
-            Cancel Booking
-          </button>
+          <div className="flex flex-wrap items-center gap-2">
+            {booking.status === "Pending" && (
+              <button
+                onClick={() => onCancel(booking._id)}
+                disabled={cancelling || deleting}
+                className="flex items-center gap-1.5 rounded-lg border border-red-400/30 px-2.5 py-1.5 text-[11px] font-semibold text-red-400 transition hover:bg-red-400/10 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <Trash2 size={13} />
+                {cancelling ? "Cancelling..." : "Cancel Booking"}
+              </button>
+            )}
+
+            <button
+              onClick={() => onDelete(booking._id)}
+              disabled={cancelling || deleting}
+              className="flex items-center gap-1.5 rounded-lg bg-red-500 px-2.5 py-1.5 text-[11px] font-semibold text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <Trash2 size={13} />
+              {deleting ? "Deleting..." : "Delete"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

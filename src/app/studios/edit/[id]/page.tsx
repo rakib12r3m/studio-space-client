@@ -307,7 +307,7 @@ export default function EditStudioPage() {
           <div className="flex justify-end gap-3 border-t border-white/10 pt-6">
             <Button
               type="button"
-              variant="outline"
+             
               onClick={() => router.push("/my-listings")}
             >
               Cancel

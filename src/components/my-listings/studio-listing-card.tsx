@@ -64,12 +64,7 @@ export default function StudioListingCard({ studio, onDelete }: Props) {
         </div>
 
         <div className="flex gap-3">
-          {/* <Button asChild className="flex-1 bg-lime-400 text-[#071936] hover:bg-lime-300">
-            <Link href={`/studios/edit/${studio._id}`}>
-              <Pencil size={16} />
-              Edit
-            </Link>
-          </Button> */}
+         
           <Link href={`/studios/edit/${studio._id}`} className="flex-1">
             <Button className="w-full bg-green-600 text-white hover:bg-green-700 dark:bg-lime-400 dark:text-[#080F2A] dark:hover:bg-lime-300">
               <Pencil size={16} />

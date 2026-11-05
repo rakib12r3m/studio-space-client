@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -6,221 +7,112 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import type { Studio } from "@/app/studios/[id]/page";
 
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
 const BookingModal = ({ studio }: { studio: Studio }) => {
   const [open, setOpen] = useState(false);
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user, "user from bookingModal");
 
- 
-  //   e.preventDefault(); 
-  //   const formData = new FormData(e.currentTarget)
-  //   const info = Object.fromEntries(formData.entries())
-  //   console.log(info, 'from booking form');
-    
+  const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  //   if (!user) {
-  //     toast.error("Please login before booking");
-  //     return;
-  //   }
-
-  //   // const formData = new FormData(e.currentTarget);
-
-  //   // const bookingDate = formData.get("bookingDate") as string;
-  //   // const startTime = formData.get("startTime") as string;
-  //   // const endTime = formData.get("endTime") as string;
-  //   // const guests = Number(formData.get("guests"));
-
-  //   // const start = new Date(`2000-01-01T${startTime}`);
-  //   // const end = new Date(`2000-01-01T${endTime}`);
-
-  //   // const hours = (end.getTime() - start.getTime()) / 3600000;
-
-  //   // if (hours <= 0) {
-  //   //   toast.error("End time must be after start time");
-  //   //   return;
-  //   // }
-
-  //   // const bookingData = {
-  //   //   studioId: studio._id,
-  //   //   studioTitle: studio.title,
-  //   //   ownerName: studio.ownerName,
-  //   //   ownerEmail: studio.ownerEmail,
-  //   //   userName: user.name,
-  //   //   userEmail: user.email,
-  //   //   bookingDate,
-  //   //   startTime,
-  //   //   endTime,
-  //   //   guests,
-  //   //   hourlyRate: Number(studio.hourlyRate),
-  //   //   totalPrice: hours * Number(studio.hourlyRate),
-  //   //   securityDeposit: Number(studio.securityDeposit),
-  //   //   status: "Pending",
-  //   //   createdAt: new Date(),
-  //   // };
-
-  //   // try {
-  //   //   const res = await fetch("http://localhost:8000/bookings", {
-  //   //     method: "POST",
-  //   //     headers: {
-  //   //       "Content-Type": "application/json",
-  //   //     },
-  //   //     body: JSON.stringify(bookingData),
-  //   //   });
-
-  //   //   const result = await res.json();
-
-  //   //   if (!res.ok) {
-  //   //     toast.error(result.message || "Booking failed");
-  //   //     return;
-  //   //   }
-
-  //   //   toast.success("Studio booked successfully!");
-  //   //   setOpen(false);
-  //   //   e.currentTarget.reset();
-  //   // } catch {
-  //   //   toast.error("Something went wrong!");
-  //   // }
-  // };
-// const handleBooking =async (e: React.FormEvent<HTMLFormElement>) => {
-//   e.preventDefault();
-
-//   const formData = new FormData(e.currentTarget);
-//   const info = Object.fromEntries(formData.entries());
-
-//   console.log(info, "Booking Form Data");
-
-// const data = {
-//   ...user,
-//   ...info,
-//   ...studio,
-//   bookedAt: new Date().toLocaleDateString("en-GB"),
-
-// }
-// // const data = {
-// //   ...info,
-// //   userName: user?.name,
-// //   userEmail: user?.email,
-// //   studioId: studio._id,
-// //   studioTitle: studio.title,
-// //   ownerName: studio.ownerName,
-// //   ownerEmail: studio.ownerEmail,
-// //   hourlyRate: Number(studio.hourlyRate),
-// //   securityDeposit: Number(studio.securityDeposit),
-// //   bookedAt: new Date(),
-// //   status: "Pending",
-// // };
-// console.log(data, " all Data");
-
-// const res = await fetch('http://localhost:8000/bookings',{
-//   method: "POST",
-//   headers: {
-//     "Content-Type":"application/json"
-//   },
-//   body: JSON.stringify(data)
-// })
-// const BookingData = await res.json()
-// console.log(BookingData, "Booking Data");
-
-// };
-const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-
-  if (!user) {
-    toast.error("Please login before booking");
-    return;
-  }
-
-  const form = e.currentTarget;
-  const formData = new FormData(form);
-
-  const bookingDate = formData.get("bookingDate") as string;
-  const startTime = formData.get("startTime") as string;
-  const endTime = formData.get("endTime") as string;
-  const guests = Number(formData.get("guests"));
-
-  if (startTime >= endTime) {
-    toast.error("End time must be after start time");
-    return;
-  }
-
-  try {
-    // Check existing bookings
-    const checkRes = await fetch(
-      `http://localhost:8000/bookings/${studio._id}/${bookingDate}`
-    );
-
-    if (!checkRes.ok) {
-      toast.error("Could not check studio availability");
+    if (!user) {
+      toast.error("Please login before booking");
       return;
     }
 
-    const existingBookings = await checkRes.json();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
-    // Check time overlap
-    const isBooked = existingBookings.some(
-      (booking: { startTime: string; endTime: string }) =>
-        startTime < booking.endTime && endTime > booking.startTime
-    );
+    const bookingDate = formData.get("bookingDate") as string;
+    const startTime = formData.get("startTime") as string;
+    const endTime = formData.get("endTime") as string;
+    const guests = Number(formData.get("guests"));
 
-    if (isBooked) {
-      toast.error("This time slot is already booked!");
+    if (startTime >= endTime) {
+      toast.error("End time must be after start time");
       return;
     }
 
-    // Prepare booking data
-    const data = {
-      name: user.name,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      image: user.image,
+    try {
+      // Check existing bookings
+      const checkRes = await fetch(
+        `${API_URL}/bookings/${studio._id}/${bookingDate}`
+      );
 
-      id: studio._id,
-      bookingDate,
-      startTime,
-      endTime,
-      guests: String(guests),
+      if (!checkRes.ok) {
+        toast.error("Could not check studio availability");
+        return;
+      }
 
-      title: studio.title,
-      category: studio.category,
-      location: studio.location,
-      hourlyRate: studio.hourlyRate,
-      securityDeposit: studio.securityDeposit,
-      maxCapacity: studio.maxCapacity,
-      imageUrl: studio.imageUrl,
-      overview: studio.overview,
-      amenities: studio.amenities,
-      ownerName: studio.ownerName,
-      ownerEmail: studio.ownerEmail,
+      const existingBookings = await checkRes.json();
 
-      bookedAt: new Date().toLocaleDateString("en-GB"),
-    };
+      // Check time overlap
+      const isBooked = existingBookings.some(
+        (booking: { startTime: string; endTime: string }) =>
+          startTime < booking.endTime && endTime > booking.startTime
+      );
 
-    // Save booking
-    const res = await fetch("http://localhost:8000/bookings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+      if (isBooked) {
+        toast.error("This time slot is already booked!");
+        return;
+      }
 
-    if (!res.ok) {
-      toast.error("Booking failed!");
-      return;
+      // Prepare booking data
+      const data = {
+        name: user.name,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        image: user.image,
+
+        id: studio._id,
+        bookingDate,
+        startTime,
+        endTime,
+        guests: String(guests),
+
+        title: studio.title,
+        category: studio.category,
+        location: studio.location,
+        hourlyRate: studio.hourlyRate,
+        securityDeposit: studio.securityDeposit,
+        maxCapacity: studio.maxCapacity,
+        imageUrl: studio.imageUrl,
+        overview: studio.overview,
+        amenities: studio.amenities,
+        ownerName: studio.ownerName,
+        ownerEmail: studio.ownerEmail,
+
+        status: "Pending",
+        bookedAt: new Date().toLocaleDateString("en-GB"),
+      };
+
+      // Save booking
+      const res = await fetch(`${API_URL}/bookings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        toast.error(result.message || "Booking failed!");
+        return;
+      }
+
+      toast.success("Studio booked successfully!");
+      form.reset();
+      setOpen(false);
+    } catch {
+      toast.error("Something went wrong!");
     }
-
-    toast.success("Studio booked successfully!");
-    form.reset();
-    setOpen(false);
-
-  } catch {
-    toast.error("Something went wrong!");
-  }
-};
-
-
+  };
 
   return (
     <>
@@ -242,59 +134,16 @@ const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
               </button>
             </div>
 
-            <p className="mt-2 text-sm text-gray-400">{studio.title}</p>
+            <p className="mt-2 text-sm text-gray-400">
+              {studio.title}
+            </p>
 
-            {/* <form onSubmit={handleBooking} className="mt-5 space-y-4">
-
-              <input
-                type="date"
-                name="bookingDate"
-                min={new Date().toISOString().split("T")[0]}
-                required
-                className="w-full rounded-lg bg-[#080F2A] p-3"
-              />
-
-              <input
-                type="time"
-                name="startTime"
-                required
-                className="w-full rounded-lg bg-[#080F2A] p-3"
-              />
-
-              <input
-                type="time"
-                name="endTime"
-                required
-                className="w-full rounded-lg bg-[#080F2A] p-3"
-              />
-
-              <input
-                type="number"
-                name="guests"
-                min="1"
-                max={Number(studio.maxCapacity)}
-                placeholder="Number of guests"
-                required
-                className="w-full rounded-lg bg-[#080F2A] p-3"
-              />
-
-              <p className="text-sm text-gray-400">
-                Hourly Rate: ${studio.hourlyRate}
-              </p>
-
-              <button
-                type="submit"
-                className="w-full rounded-lg bg-lime-400 py-3 font-bold text-[#080F2A]"
-              >
-                Confirm Booking
-              </button>
-
-            </form> */}
             <form onSubmit={handleBooking} className="mt-5 space-y-4">
               <div>
                 <label className="mb-2 block text-sm font-medium text-gray-300">
                   Booking Date
                 </label>
+
                 <input
                   type="date"
                   name="bookingDate"
@@ -308,6 +157,7 @@ const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
                 <label className="mb-2 block text-sm font-medium text-gray-300">
                   Start Time
                 </label>
+
                 <input
                   type="time"
                   name="startTime"
@@ -320,6 +170,7 @@ const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
                 <label className="mb-2 block text-sm font-medium text-gray-300">
                   End Time
                 </label>
+
                 <input
                   type="time"
                   name="endTime"
@@ -332,6 +183,7 @@ const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
                 <label className="mb-2 block text-sm font-medium text-gray-300">
                   Number of Guests
                 </label>
+
                 <input
                   type="number"
                   name="guests"
@@ -360,8 +212,7 @@ const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
                 </button>
 
                 <button
-                  type="submit" 
-                 
+                  type="submit"
                   className="w-full rounded-lg bg-lime-400 py-3 font-semibold text-[#080F2A] transition hover:bg-lime-300"
                 >
                   Confirm Booking
