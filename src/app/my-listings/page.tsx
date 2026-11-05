@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import StudioListingCard, {
   StudioType,
 } from "@/components/my-listings/studio-listing-card";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -56,10 +57,15 @@ export default function MyListingsPage() {
 
     try {
       setDeleting(true);
-
+      const token = await getTokenFromClient();
       const res = await fetch(
         `${API_URL}/studios/${selectedStudio._id}?email=${encodeURIComponent(session.user.email)}`,
-        { method: "DELETE" },
+        {
+          method: "DELETE",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
       );
 
       const data = await res.json();
@@ -100,7 +106,8 @@ export default function MyListingsPage() {
             </p>
 
             <h1 className="text-3xl font-bold md:text-4xl">
-              My Studio Listings<span className="text-green-600 dark:text-lime-400">.</span>
+              My Studio Listings
+              <span className="text-green-600 dark:text-lime-400">.</span>
             </h1>
 
             <p className="mt-2 text-slate-600 dark:text-gray-400">
@@ -118,16 +125,18 @@ export default function MyListingsPage() {
             </Link>
           </Button> */}
           <Link
-  href="/add-studio"
-  className="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 font-bold text-white hover:bg-green-700 dark:bg-lime-400 dark:text-[#071936] dark:hover:bg-lime-300 "
->
-  <Plus size={18} />
-  Add New Studio
-</Link>
+            href="/add-studio"
+            className="inline-flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 font-bold text-white hover:bg-green-700 dark:bg-lime-400 dark:text-[#071936] dark:hover:bg-lime-300 "
+          >
+            <Plus size={18} />
+            Add New Studio
+          </Link>
         </div>
 
         <div className="mb-8 rounded-xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-[#0D2450]">
-          <p className="text-sm text-slate-600 dark:text-gray-400">Total Studios</p>
+          <p className="text-sm text-slate-600 dark:text-gray-400">
+            Total Studios
+          </p>
           <h2 className="mt-2 text-3xl font-bold text-green-600 dark:text-lime-400">
             {studios.length}
           </h2>
@@ -147,12 +156,12 @@ export default function MyListingsPage() {
                 Add Your First Studio
               </Link>
             </Button> */}
-           <Link href="/add-studio">
-  <Button className="mt-6 bg-green-600 text-white hover:bg-green-700 dark:bg-lime-400 dark:text-[#071936] dark:hover:bg-lime-300 dark:hover:text-[#071936]">
-    <Plus size={18} />
-    Add Your First Studio
-  </Button>
-</Link>
+            <Link href="/add-studio">
+              <Button className="mt-6 bg-green-600 text-white hover:bg-green-700 dark:bg-lime-400 dark:text-[#071936] dark:hover:bg-lime-300 dark:hover:text-[#071936]">
+                <Plus size={18} />
+                Add Your First Studio
+              </Button>
+            </Link>
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

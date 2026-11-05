@@ -17,6 +17,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const amenities = [
   "WiFi",
@@ -78,20 +79,23 @@ export default function AddStudioPage() {
     };
 
     try {
+     const token = await getTokenFromClient()
+      
       setLoading(true);
 
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-studio`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`
         },
         body: JSON.stringify(studioData),
       });
 
-      const data = await res.json();
+      const result = await res.json();
 
       if (!res.ok) {
-        toast.error(data.message || "Failed to add studio");
+        toast.error(result.message || "Failed to add studio");
         return;
       }
 

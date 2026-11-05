@@ -30,14 +30,11 @@ interface Props {
 
 const StudioDetails = async ({ params }: Props) => {
   const { id } = await params;
-
+ 
+  
   const res = await fetch(`http://localhost:8000/studios/${id}`);
 
-  // if (res.status === 404) notFound();
 
-  // if (!res.ok) {
-  //   throw new Error("Failed to fetch studio details");
-  // }
   if (!res.ok) {
   notFound();
 }

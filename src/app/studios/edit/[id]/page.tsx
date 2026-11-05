@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -63,7 +64,12 @@ export default function EditStudioPage() {
 
     const fetchStudio = async () => {
       try {
-        const res = await fetch(`${API_URL}/studios/${id}`);
+        const token = await getTokenFromClient();
+        const res = await fetch(`${API_URL}/studios/${id}`,{
+           headers: {
+    authorization: `Bearer ${token}`,
+  },
+        });
 
       
 
@@ -117,13 +123,14 @@ export default function EditStudioPage() {
 
     try {
       setSaving(true);
-
+const token = await getTokenFromClient()
       const res = await fetch(
         `${API_URL}/studios/${id}?email=${encodeURIComponent(session.user.email)}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${token}`
           },
           body: JSON.stringify({
             ...form,

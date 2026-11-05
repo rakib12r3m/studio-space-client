@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -17,9 +16,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 const BookingList = ({
   bookings,
@@ -41,9 +40,7 @@ const BookingList = ({
 
     const id = bookingToCancel;
 
-    const selectedBooking = myBookings.find(
-      (booking) => booking._id === id
-    );
+    const selectedBooking = myBookings.find((booking) => booking._id === id);
 
     if (!selectedBooking || selectedBooking.status !== "Pending") {
       return;
@@ -51,18 +48,19 @@ const BookingList = ({
 
     try {
       setCancellingId(id);
-
+      const token = await getTokenFromClient();
       const res = await fetch(
         `${API_URL}/bookings/${id}?email=${encodeURIComponent(email)}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             status: "Cancelled",
           }),
-        }
+        },
       );
 
       const data = await res.json();
@@ -74,10 +72,8 @@ const BookingList = ({
 
       setMyBookings((prev) =>
         prev.map((booking) =>
-          booking._id === id
-            ? { ...booking, status: "Cancelled" }
-            : booking
-        )
+          booking._id === id ? { ...booking, status: "Cancelled" } : booking,
+        ),
       );
 
       setBookingToCancel(null);
@@ -95,12 +91,15 @@ const BookingList = ({
 
     try {
       setDeletingId(bookingToDelete);
-
+      const token = await getTokenFromClient();
       const res = await fetch(
         `${API_URL}/bookings/${bookingToDelete}?email=${encodeURIComponent(email)}`,
         {
           method: "DELETE",
-        }
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        },
       );
 
       const data = await res.json();
@@ -111,7 +110,7 @@ const BookingList = ({
       }
 
       setMyBookings((prev) =>
-        prev.filter((booking) => booking._id !== bookingToDelete)
+        prev.filter((booking) => booking._id !== bookingToDelete),
       );
 
       toast.success("Booking deleted successfully!");
@@ -132,9 +131,7 @@ const BookingList = ({
         <div className="rounded-2xl border border-white/10 bg-[#111B38] px-5 py-20 text-center">
           <CalendarDays className="mx-auto mb-5 text-lime-400" size={45} />
 
-          <h2 className="text-2xl font-bold text-white">
-            No Bookings Yet!
-          </h2>
+          <h2 className="text-2xl font-bold text-white">No Bookings Yet!</h2>
 
           <p className="mx-auto mt-3 max-w-md text-gray-400">
             You haven&apos;t booked any creative spaces yet. Explore our studios
@@ -162,8 +159,8 @@ const BookingList = ({
               </AlertDialogTitle>
 
               <AlertDialogDescription className="text-gray-400">
-                Are you sure you want to permanently delete this booking?
-                This action cannot be undone.
+                Are you sure you want to permanently delete this booking? This
+                action cannot be undone.
               </AlertDialogDescription>
             </AlertDialogHeader>
 
@@ -257,8 +254,8 @@ const BookingList = ({
             </AlertDialogTitle>
 
             <AlertDialogDescription className="text-gray-400">
-              Are you sure you want to permanently delete this booking?
-              This action cannot be undone.
+              Are you sure you want to permanently delete this booking? This
+              action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
 
