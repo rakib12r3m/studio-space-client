@@ -45,7 +45,7 @@ const AllStudios = () => {
   const selectedCategory = searchParams.get("category") || "All Studios";
 
   useEffect(() => {
-    fetch("http://localhost:8000/studios")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/studios`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch studios");
         return res.json();

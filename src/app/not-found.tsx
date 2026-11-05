@@ -50,9 +50,9 @@ const NotFound = () => {
           </h2>
 
           <p className="mt-4 text-sm leading-7 text-blue-100/60 sm:text-base">
-            The creative space you're looking for may have moved,
-            been removed, or doesn't exist anymore.
-            Don't worry, let's get you back on track!
+            The creative space you&apos;re looking for may have moved,
+            been removed, or doesn&apos;t exist anymore.
+            Don&apos;t worry, let&apos;s get you back on track!
           </p>
         </div>
 
